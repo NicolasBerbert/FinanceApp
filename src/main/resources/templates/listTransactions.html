@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Listar Transações</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+    <h1>Lista de Transações</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="transaction : ${transactions}">
+                <td th:text="${transaction.description}"></td>
+                <td th:text="${transaction.amount}"></td>
+                <td>
+                    <a th:href="@{/api/transactions/update/{id}(id=${transaction.id})}">Editar</a>
+                    <form class="delete-form" action="#" th:action="@{/api/transactions/delete/{id}(id=${transaction.id})}" method="post">
+                        <button type="submit">Deletar</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="/api/transactions/add">Adicionar Transação</a>
+</body>
+</html>
